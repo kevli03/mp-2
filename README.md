@@ -1,1 +1,1 @@
-# mp-2
+Mini-Project 2: React App Interfacing With JokeAPI
