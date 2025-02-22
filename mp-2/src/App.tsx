@@ -1,30 +1,30 @@
-import Jokes from "./components/Jokes.tsx";
-import { JokeData } from "./interfaces/JokeData.ts";
+import Image from "./components/Image.tsx";
+import { ImageData } from "./interfaces/ImageData.ts";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import './App.css';
 
-const WrapperDiv = styled.div`
-    width: 90vw;
+const PageWrapper = styled.div`
+    width: 80%;
     margin: auto;
 `;
 
 export default function App() {
-    const [jokeData, setJokeData] = useState<JokeData[]>([]);
+    const [image, setImage] = useState<ImageData[]>([]);
 
     useEffect(() => {
-        async function getJokes() {
-            const res = await fetch(`https://official-joke-api.appspot.com/jokes/random/5`);
+        async function getImages(): Promise<void> {
+            const res = await fetch("https://picsum.photos/v2/list");
             const data = await res.json();
-            setJokeData(data);
+            setImage(data);
         }
-        getJokes()
+        getImages()
+            .then(() => console.log("Success!"))
             .catch((e: Error) => console.log("Error encountered: " + e));
-    });
+    }, []);
 
     return (
-        <WrapperDiv>
-            <Jokes jokeData={jokeData}/>
-        </WrapperDiv>
+        <PageWrapper>
+            <Image image={image}/>
+        </PageWrapper>
     );
 }
